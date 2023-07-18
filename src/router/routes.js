@@ -3,29 +3,29 @@ const routes = [
   {
     path: '/',
     redirect: {
-      path: 'my-listOfUser'
+      path: '/advice-generator'
     },
     component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { 
-        path: 'my-listOfUser',
-        name: 'my-listOfUser', 
-        component: () => import('pages/listOfUser.vue'),
-       },
-      { 
-        path: 'my-addUser',
-        name: 'my-addUser', 
-        component: () => import('pages/addUser.vue'),
-       }
+    // children: [
+    //   { 
+    //     path: 'my-listOfUser',
+    //     name: 'my-listOfUser', 
+    //     component: () => import('pages/listOfUser.vue'),
+    //    },
+    //   { 
+    //     path: 'my-addUser',
+    //     name: 'my-addUser', 
+    //     component: () => import('pages/addUser.vue'),
+    //    }
 
-    ]
+    // ]
   },
 
-  // {
-  //   path: '/advice-generator',
-  //   name: '/advice-generator',
-  //   component: () => import('../pages/AdviceGenerator.vue')
-  // },
+  {
+    path: '/advice-generator',
+    name: '/advice-generator',
+    component: () => import('../pages/AdviceGenerator.vue')
+  },
 
   // {
   //   path: '/example',
