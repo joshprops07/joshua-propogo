@@ -1,6 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header
+    :class="lightDark ? 'bg-teal' : 'bg-dark'"
+    elevated>
       <q-toolbar>
         <q-btn
           flat
@@ -12,24 +14,39 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          User Management System
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div class="q-px-md q-gutter-x-md">
+          <q-btn :label="lightDark ? 'Light' : 'Dark'" :color="lightDark ? 'orange-9' : 'grey-9'" @click="toggle" />
+          <q-btn icon="house" flat dense round  to="/joshua-propogo"/>
+          <q-btn icon="person" flat round dense />
+          <q-btn icon="settings" flat round dense />
+        </div>
       </q-toolbar>
     </q-header>
 
     <q-drawer
+    class="bg-grey-4"
       v-model="leftDrawerOpen"
       show-if-above
       bordered
     >
-      <q-list>
+      <q-list>  
         <q-item-label
           header
+          class=" q-py-lg"
         >
-          Essential Links
+        <div class="flex flex-center">
+          <q-avatar round color="teal text-white" size="65px" icon="person"/>
+          <div class="q-pl-sm text-grey-8" style="font-size: 13px;">
+           <span>Joshua Petes Propogo</span>
+           <div>joshuapropogo07@gmail.com</div>
+        </div>
+        </div>
         </q-item-label>
+
+        <q-separator />
 
         <EssentialLink
           v-for="link in essentialLinks"
@@ -48,51 +65,38 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { lightDark } from '../composables/Task';
 
 const linksList = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'List Of Users',
+    icon: 'people',
+    route_name: 'my-listOfUser'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: 'Add Users',
+    icon: 'person',
+    route_name: 'my-addUser'
   },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
+  // {
+  //   title: 'My Tasks',
+  //   caption: 'List of unfinished tasks',
+  //   icon: 'task',
+  //   route_name: 'my-tasks'
+  // },
+  // {
+  //   title: 'Finished Tasks',
+  //   caption: 'List of unfinished tasks',
+  //   icon: 'check_circle_outline',
+  //   route_name: 'finished-tasks'
+  // },
+  // {
+  //   title: 'Deleted Tasks',
+  //   caption: 'List of unfinished tasks',
+  //   icon: 'delete_outline',
+  //   route_name: 'deleted-tasks'
+  // },
+];
 
 export default defineComponent({
   name: 'MainLayout',
@@ -104,7 +108,12 @@ export default defineComponent({
   setup () {
     const leftDrawerOpen = ref(false)
 
+    const toggle = () => {
+      lightDark.value = !lightDark.value
+    }
     return {
+      lightDark,
+      toggle,
       essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer () {
